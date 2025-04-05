@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bienvenue sur Hostolink</title>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4/animate.min.css"/>
+
+  <!-- Son local -->
+  <audio id="welcome-sound" preload="auto">
+    <source src="success-fanfare-trumpets-6185.mp3" type="audio/mpeg">
+  </audio>
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #2f2f2f, #1e1e1e);
+      background-size: 200% 200%;
+      animation: gradientMove 8s ease infinite;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .glow-button {
+      box-shadow: 0 0 15px #00ffcc, 0 0 25px #00ffcc;
+      border: none;
+      background-color: #00bfa5 !important;
+      color: white !important;
+      font-weight: bold;
+    }
+
+    .glow-button:hover {
+      box-shadow: 0 0 20px #00ffc3, 0 0 40px #00ffc3;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const audio = document.getElementById('welcome-sound');
+    audio.play().catch(() => {
+      // Cas où le navigateur bloque, on rejoue après clic
+    });
+
+    Swal.fire({
+      title: '<span class="animate__animated animate__fadeInUp">🎉 Bienvenue sur <b>Hostolink</b> !</span>',
+      html: '<p style="font-size:17px;">La santé n’attend pas. <br> Commençons dès maintenant.</p>',
+      iconHtml: '<div class="animate__animated animate__tada" style="font-size:50px;">💚</div>',
+      showConfirmButton: true,
+      confirmButtonText: 'Merci',
+      customClass: {
+        confirmButton: 'glow-button animate__animated animate__pulse animate__infinite',
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      backdrop: `
+        rgba(0,0,0,0.6)
+        url('https://cdn.pixabay.com/animation/2023/02/21/10/40/10-40-31-816_512.gif')
+        center 30%
+        no-repeat
+      `,
+      allowOutsideClick: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Rejoue le son juste avant de rediriger (si bloqué au chargement)
+        audio.play().finally(() => {
+          window.location.href = 'accueil.html';
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
