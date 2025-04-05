@@ -51,7 +51,6 @@
   window.addEventListener('DOMContentLoaded', () => {
     const audio = document.getElementById('welcome-sound');
     audio.play().catch(() => {
-      // Cas où le navigateur bloque, on rejoue après clic
     });
 
     Swal.fire({
@@ -73,7 +72,6 @@
       allowOutsideClick: false
     }).then((result) => {
       if (result.isConfirmed) {
-        // Rejoue le son juste avant de rediriger (si bloqué au chargement)
         audio.play().finally(() => {
           window.location.href = 'accueil.html';
         });
